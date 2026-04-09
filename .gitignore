@@ -1,0 +1,4 @@
+./node_modules
+./package-lock.json
+Frontend/node_modules
+Frontend/package-lock.json
