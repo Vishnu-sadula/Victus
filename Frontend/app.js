@@ -35,6 +35,9 @@ const HTML_CONTENT = `
       <label for="user_id">ID</label>
       <input id="user_id" name="user_id" type="number" placeholder="user id">
 
+      <label for="email_id">Email Id</label>
+      <input id="email_id" name="email_id" type="text" placeholder="email id">
+
       <button type="submit">Submit</button>
     </form>
     <div id="result" class="result" style="display:none"></div>
@@ -84,32 +87,33 @@ app.get('/', (req, res) => {
 });
 
 app.post('/submit', async (req, res) => {
-  const { username = '', job_role = '', user_id = '' } = req.body;
+  const { username = '', job_role = '', user_id = '', email_id = '' } = req.body;
 
   try {
     const resp = await fetch('http://127.0.0.1:5000/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, job_role, user_id })
+      body: JSON.stringify({ username, job_role, user_id, email_id })
     });
 
     const ct = resp.headers.get('content-type') || '';
+
+    // Handle JSON responses
     if (ct.includes('application/json')) {
-        return res.json(await resp.json());
-    }
-
-    if (resp.ok) {
       const data = await resp.json();
-      // Send only the message string, not the whole JSON object
-      return res.send(data.message || "Data saved successfully!");
-    }
+      return res.json(data); // Returns the whole JSON object to the frontend
+    } 
+    
+    // Handle Text/Plain or other responses
+    const text = await resp.text();
+    return res.status(resp.status).send(text);
 
-    return res.send(await resp.text());
   } catch (err) {
     console.error('Fetch error:', err);
     return res.status(502).send('Error contacting backend: ' + err.message);
   }
 });
+
 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

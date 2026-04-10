@@ -20,31 +20,33 @@ CSS = """
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    name, job, user_id, email_id = "Guest", "Unknown role", "N/A", "Unknown"
+
     if request.method == "POST":
-        # 1. Check if the request is JSON (from your Express fetch)
         if request.is_json:
             data = request.get_json()
-            name = data.get("username", "Guest")
-            job = data.get("job_role", "Unknown role")
-            user_id = data.get("user_id", "N/A")
-        # 2. Otherwise, treat it as Form Data (from the Flask HTML)
+            name = data.get("username", name)
+            job = data.get("job_role", job)
+            user_id = data.get("user_id", user_id)
+            email_id = data.get("email_id", email_id)
         else:
-            name = request.form.get("username", "Guest")
-            job = request.form.get("job_role", "Unknown role")
-            user_id = request.form.get("user_id", "N/A")
+            # FIX: Use request.form and check naming
+            name = request.form.get("username", name)
+            job = request.form.get("job_role", job)
+            user_id = request.form.get("user_id", user_id)
+            email_id = request.form.get("email_id", email_id) # Matches lowercase now
         
-        # Save to the in-memory list
-        USER_DATA.append({"name": name, "job": job, "id": user_id})
+        # FIX: Added email to the dictionary
+        USER_DATA.append({"name": name, "job": job, "id": user_id, "email": email_id})
 
-    # Generate HTML for all saved entries
-    entries_html = "".join([
-        f'<div class="entry"><b>{u["name"]}</b> (ID: {u["id"]}) - {u["job"]}</div>' 
-        for u in reversed(USER_DATA) # Show newest first
-    ])
-
-    # If it was a JSON request, return a JSON response so Express is happy
-    if request.is_json:
+        if request.is_json:
             return jsonify({"status": "success", "message": f"Saved {name}"})
+
+    # Update HTML generator to include email
+    entries_html = "".join([
+        f'<div class="entry"><b>{u["name"]}</b> (ID: {u["id"]}) - {u["job"]} <br><small>{u["email"]}</small></div>' 
+        for u in reversed(USER_DATA)
+    ])
 
     return f"""
     <!DOCTYPE html>
@@ -57,6 +59,7 @@ def index():
                 <label>Username</label><input name="username" type="text" required>
                 <label>Job Role</label><input name="job_role" type="text">
                 <label>ID</label><input name="user_id" type="number">
+                <label>Email Id</label><input name="email_Id" type="text">
                 <button type="submit">Add User</button>
             </form>
 
