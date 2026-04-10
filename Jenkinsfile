@@ -34,15 +34,17 @@ pipeline {
         stage('Deploy Victus Stack') {
             steps {
                 script {
+                    
                     // Stop and remove old containers if they are already running
                     sh "docker stop victus-be-cont victus-fe-cont || true"
                     sh "docker rm victus-be-cont victus-fe-cont || true"
+                    sh "docker image prune -f"
 
                     echo "Starting Victus Backend on port 5000..."
-                    sh "docker run -d --name victus-be-cont --network host victus-backend"
+                    sh "docker run -d --name victus-be-cont --network host -p 5000:5000 victus-backend"
 
                     echo "Starting Victus Frontend on port 3000..."
-                    sh "docker run -d --name victus-fe-cont --network host victus-frontend"
+                    sh "docker run -d --name victus-fe-cont --network host -p 3000:3000 victus-frontend"
                 }
             }
         }
