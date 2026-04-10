@@ -1,8 +1,10 @@
 FROM python:3.13.13-slim
 
-WORKDIR /app
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update
+WORKDIR /app
 
 COPY requirements.txt .
 
@@ -12,4 +14,4 @@ COPY . .
 
 ENV FLASK_APP=app.py
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "3", "app:app"]
+CMD ["python", "app.py"]
