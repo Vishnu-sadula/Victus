@@ -39,10 +39,10 @@ pipeline {
                     sh "docker rm victus-be-cont victus-fe-cont || true"
 
                     echo "Starting Victus Backend on port 5000..."
-                    sh "docker run -d --name victus-be-cont -p 5000:5000 victus-backend"
+                    sh "docker run -d --name victus-be-cont --network host victus-backend"
 
                     echo "Starting Victus Frontend on port 3000..."
-                    sh "docker run -d --name victus-fe-cont -p 3000:3000 victus-frontend"
+                    sh "docker run -d --name victus-fe-cont --network host victus-frontend"
                 }
             }
         }
