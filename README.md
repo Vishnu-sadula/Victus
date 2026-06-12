@@ -1,18 +1,17 @@
-# AWS Infrastructure Automation with Terraform & Jenkins CI/CD
+## AWS Infrastructure Automation with Terraform & Jenkins CI/CD
 
 An automated DevOps solution featuring reusable Terraform modules for multi-environment AWS provisioning and an automated, polling-driven Jenkins CI/CD pipeline for containerized application deployments.
----
 
-## 🚀 Key Features
+
+## Key Features
 
 *   **Reusable Terraform Modules**: Provisions multi-environment AWS resources (`dev` and `staging`).
 *   **Rapid Environment Setup**: Reduces manual environment creation time from hours to under 15 minutes.
 *   **Zero-Touch Deployment**: Automates the build, test, and deployment workflows seamlessly on every code push.
 *   **Event-Driven Pipeline**: Fully integrated using Jenkins pipelines and GitHub webhooks.
 
----
 
-## 🛠️ Infrastructure as Code (IaC) Setup
+### Infrastructure as Code (IaC) Setup
 
 ### 1. Prerequisites
 *   Terraform installed locally.
@@ -37,7 +36,6 @@ An automated DevOps solution featuring reusable Terraform modules for multi-envi
    terraform apply --auto-approve
    ```
 
----
 
 ## Jenkins & Local Deployment Configuration
 
@@ -56,9 +54,8 @@ An automated DevOps solution featuring reusable Terraform modules for multi-envi
 4. Point the pipeline definition to retrieve your script configuration directly from your source control repository (SCM tracking).
 5. Save the configuration.
 
----
 
-## 🔄 Verification
+## Verification
 1. Push a new code commit to your tracking branch on GitHub.
 2. Verify that the GitHub Webhook instantly sends a payload trigger to Jenkins.
 3. Observe the Jenkins dashboard to confirm the automated build, test, and deployment steps execute without manual intervention.
