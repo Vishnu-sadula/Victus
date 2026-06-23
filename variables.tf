@@ -30,3 +30,8 @@ variable "key_name" {
   type    = string
   default = "zapier"
 } 
+
+variable "aws_region" {
+  type    = string
+  default = "us-east-1"
+}
