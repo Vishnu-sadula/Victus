@@ -3,3 +3,7 @@
 Frontend/node_modules
 Frontend/package-lock.json
 terraform.tfvars
+terraform.tfstate.backup
+terraform.tfstate
+.terraform*
+.gitignore

@@ -1,13 +1,36 @@
 pipeline {
     agent any
 
+    environment {
+        TF_DIR = '.'
+        DOCKER_REGISTRY = 'vishnusai1/web'
+        BACKEND_IMAGE = 'victus-backend'
+        FRONTEND_IMAGE = 'victus-frontend'
+
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                // Pulls the latest code from your Git repo
+                
                 checkout scm
             }
         }
+
+        stage('Terraform - fmt') {
+            steps {
+                sh "terraform fmt -recursive -check"
+            }
+        }
+
+        stage('Terraform - validate') {
+            steps {
+                sh "terraform init -input=false -reconfigure"
+                sh "terraform validate"
+            }
+        }
+
+
 
         stage('Build Backend (Flask)') {
             steps {
@@ -35,7 +58,7 @@ pipeline {
             steps {
                 script {
                     
-                    // Stop and remove old containers if they are already running
+                    
                     sh "docker stop victus-be-cont victus-fe-cont || true"
                     sh "docker rm victus-be-cont victus-fe-cont || true"
 

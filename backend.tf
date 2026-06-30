@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "victus-terraform-state-prod"
-    key            = "state/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = true
-    dynamodb_table = "victus-tflock-table"
+    bucket      = "victus-tf-state"
+    region      = "us-east-1"
+    encrypt     = true
+    key         = "state/terraform.tfstate"
+    use_lockfile = true
   }
 }

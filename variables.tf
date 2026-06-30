@@ -1,10 +1,3 @@
-variable "access_key" {
-
-}
-
-variable "secret_key" {
-
-}
 
 variable "frontend_url" {
   type    = string
@@ -18,7 +11,7 @@ variable "mongo_uri" {
 
 variable "instance_name" {
   type    = string
-  default = "zapier"
+  default = "victus"
 }
 
 variable "public_key_path" {
@@ -28,10 +21,9 @@ variable "public_key_path" {
 
 variable "key_name" {
   type    = string
-  default = "zapier"
+  default = "victus"
 } 
 
 variable "aws_region" {
-  type    = string
-  default = "us-east-1"
+  
 }
