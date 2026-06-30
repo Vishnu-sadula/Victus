@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# This list stays in memory while the server is running
+
 USER_DATA = []
 
 CSS = """
@@ -30,19 +30,19 @@ def index():
             user_id = data.get("user_id", user_id)
             email_id = data.get("email_id", email_id)
         else:
-            # FIX: Use request.form and check naming
+            
             name = request.form.get("username", name)
             job = request.form.get("job_role", job)
             user_id = request.form.get("user_id", user_id)
-            email_id = request.form.get("email_id", email_id) # Matches lowercase now
+            email_id = request.form.get("email_id", email_id) 
         
-        # FIX: Added email to the dictionary
+        
         USER_DATA.append({"name": name, "job": job, "id": user_id, "email": email_id})
 
         if request.is_json:
             return jsonify({"status": "success", "message": f"Saved {name}"})
 
-    # Update HTML generator to include email
+    
     entries_html = "".join([
         f'<div class="entry"><b>{u["name"]}</b> (ID: {u["id"]}) - {u["job"]} <br><small>{u["email"]}</small></div>' 
         for u in reversed(USER_DATA)

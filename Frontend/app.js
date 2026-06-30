@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Store HTML in a constant
+
 const HTML_CONTENT = `
 <!DOCTYPE html>
 <html>
@@ -81,7 +81,7 @@ const HTML_CONTENT = `
 </html>
 `;
 
-// Serve the HTML string directly
+
 app.get('/', (req, res) => {
   res.send(HTML_CONTENT);
 });
@@ -98,13 +98,13 @@ app.post('/submit', async (req, res) => {
 
     const ct = resp.headers.get('content-type') || '';
 
-    // Handle JSON responses
+    
     if (ct.includes('application/json')) {
       const data = await resp.json();
-      return res.json(data); // Returns the whole JSON object to the frontend
+      return res.json(data);
     } 
     
-    // Handle Text/Plain or other responses
+    
     const text = await resp.text();
     return res.status(resp.status).send(text);
 

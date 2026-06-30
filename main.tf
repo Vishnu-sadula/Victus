@@ -29,10 +29,10 @@ resource "aws_key_pair" "victus" {
 }
 
 resource "aws_instance" "victus" {
-  ami                    = "ami-0ec10929233384c7f"
+  ami                    = "ami-0b6d9d3d33ba97d99"
   instance_type          = "t2.micro"
   key_name               = aws_key_pair.victus.key_name
-  vpc_security_group_ids = ["sg-02a83ab53fe1a45c6"]
+  vpc_security_group_ids = ["sg-0db13b4f0a62922ae"]
 
   user_data = <<-EOF
               #!/bin/bash
