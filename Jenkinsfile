@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        TF_DIR = '.'
         DOCKER_REGISTRY = 'vishnusai1/web'
         BACKEND_IMAGE = 'victus-backend'
         FRONTEND_IMAGE = 'victus-frontend'
@@ -11,48 +10,35 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            steps {
-                
-                checkout scm
-            }
-        }
+            steps { checkout scm }
+    }
 
         stage('Terraform - fmt') {
-            steps {
-                sh "terraform fmt -recursive -check"
-            }
-        }
+            steps { sh "terraform fmt -recursive -check" }
+    }
 
         stage('Terraform - validate') {
             steps {
                 sh "terraform init -input=false -reconfigure"
                 sh "terraform validate"
-            }
-        }
-
-
+      }
+    }
 
         stage('Build Backend (Flask)') {
             steps {
                 dir('Backend') {
-                    script {
-                        echo "Building Victus Backend..."
-                        sh "docker build -t victus-backend ."
-                    }
-                }
-            }
+                    sh "docker build -t ${BACKEND_IMAGE} ."
         }
+      }
+    }
 
         stage('Build Frontend (Node/Express)') {
             steps {
                 dir('Frontend') {
-                    script {
-                        echo "Building Victus Frontend..."
-                        sh "docker build -t victus-frontend ."
-                    }
-                }
-            }
+                    sh "docker build -t ${FRONTEND_IMAGE} ."
         }
+      }
+    }
 
         stage('Deploy Victus Stack') {
             steps {
