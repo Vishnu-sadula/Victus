@@ -22,8 +22,8 @@ variable "public_key_path" {
 variable "key_name" {
   type    = string
   default = "victus"
-} 
+}
 
 variable "aws_region" {
-  
+
 }
