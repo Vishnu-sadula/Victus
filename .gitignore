@@ -7,3 +7,5 @@ terraform.tfstate.backup
 terraform.tfstate
 .terraform*
 .gitignore
+BucketPolicy
+Backend/__pycache__/
