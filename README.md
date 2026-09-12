@@ -57,5 +57,5 @@ An automated DevOps solution featuring reusable Terraform modules for multi-envi
 
 ## Verification
 1. Push a new code commit to your tracking branch on GitHub.
-2. Verify that the GitHub Webhook instantly sends a payload trigger to Jenkins.
+2. Verify that Jenkins triggers code every 60 seconds.
 3. Observe the Jenkins dashboard to confirm the automated build, test, and deployment steps execute without manual intervention.

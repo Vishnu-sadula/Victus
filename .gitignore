@@ -1,11 +1,22 @@
+# Node.js
 ./node_modules
 ./package-lock.json
 Frontend/node_modules
 Frontend/package-lock.json
-terraform.tfvars
-terraform.tfstate.backup
+
+# Terraform State (Sensitive)
 terraform.tfstate
+terraform.tfstate.backup
+
+# Terraform Lock File (Required for reproducibility)
+.terraform.lock.hcl
+
+# Terraform Local Directory (Generated)
 .terraform*
-.gitignore
-BucketPolicy
+
+# Terraform Variables (Sensitive)
+terraform.tfvars
+
+# Other
 Backend/__pycache__/
+BucketPolicy
